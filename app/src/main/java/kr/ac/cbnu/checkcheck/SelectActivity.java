@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import kr.ac.cbnu.checkcheck.persongroupmanagement.PersonGroupListActivity;
+import kr.ac.cbnu.checkcheck.ui.IdentificationActivity;
+
 public class SelectActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +27,21 @@ public class SelectActivity extends AppCompatActivity{
                 Intent intent1 = new Intent(this, StatsActivity.class);
                 startActivity(intent1);
                 break;
+
+            case R.id.btn_student:
+                Intent intent2 = new Intent(this, PersonGroupListActivity.class);
+                startActivity(intent2);
+                break;
+
+            case R.id.btn_test:
+                Intent intent3 = new Intent(this, IdentificationActivity.class);
+                startActivity(intent3);
+                break;
+
         }
+    }
+    public void managePersonGroups(View view) {
+        Intent intent = new Intent(this, PersonGroupListActivity.class);
+        startActivity(intent);
     }
 }

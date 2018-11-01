@@ -50,40 +50,7 @@
             android:onClick="onClick"
             app:srcCompat="@drawable/btn_stats"
             android:background="#00000000"/>
-
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center|top"
-        android:orientation="vertical"
-        android:paddingTop="10dp">
-
-        <Button
-            android:id="@+id/btn_student"
-            android:layout_width="230dp"
-            android:layout_height="50dp"
-            android:onClick="managePersonGroups"
-            android:text="학생관리"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center|top"
-        android:orientation="vertical"
-        android:paddingTop="10dp">
-
-        <Button
-            android:id="@+id/btn_test"
-            android:layout_width="230dp"
-            android:layout_height="50dp"
-            android:onClick="onClick"
-            android:text="test"/>
-    </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -101,7 +68,6 @@
             android:textColor="@color/mainColor"
             android:textSize="25sp"
             android:gravity="center"/>
-
     </LinearLayout>
 
 </LinearLayout>

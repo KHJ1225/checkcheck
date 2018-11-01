@@ -108,6 +108,23 @@ public class Class_startActivity extends AppCompatActivity {
         Toast.makeText(this,"사진이 앨범에 저장되었습니다.", Toast.LENGTH_SHORT).show();
     }
 
+    public void cropImage(){
+        Log.i("cropImage", "Call");
+        Log.i("cropImage","photoURI : " + photoURI + " / albumURI : " + albumURI);
+
+        Intent cropIntent = new Intent("com.android.camera.action.CROP");
+
+        cropIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        cropIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        cropIntent.setDataAndType(photoURI, "image/*");
+        cropIntent.putExtra("aspectX", 1);
+        cropIntent.putExtra("aspectY", 2);
+        cropIntent.putExtra("scale", true);
+        cropIntent.putExtra("output", albumURI);
+        startActivityForResult(cropIntent, REQUEST_IMAGE_CROP);
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -117,8 +134,8 @@ public class Class_startActivity extends AppCompatActivity {
                     try{
                         Log.i("REQUEST_TAKE_PHOTO", "OK");
                         galleryAddPic();
-
                         image_start.setImageURI(imageUri);
+                        uploadFile(mCurrentPhotoPath);
                     } catch (Exception e) {
                         Log.e("REQUEST_TAKE_PHOTO", e.toString());
                     }
@@ -127,6 +144,23 @@ public class Class_startActivity extends AppCompatActivity {
                     Toast.makeText(Class_startActivity.this, "사진찍기를 취소하였습니다.", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case REQUEST_IMAGE_CROP:
+                if(resultCode == Activity.RESULT_OK){
+                    galleryAddPic();
+                    image_start.setImageURI(albumURI);
+                }
+                break;
+        }
+    }
+
+    public void uploadFile(String filePath){
+        String url = "http://ec2-18-207-228-30.compute-1.amazonaws.com/apptest/test.php";
+        try{
+            UploadFile uploadFile = new UploadFile(Class_startActivity.this);
+            uploadFile.setPath(filePath);
+            uploadFile.execute(url);
+        }catch(Exception e){
+            Log.e("UplocdFile", e.toString());
         }
     }
 
