@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity{
 
     private static final int MY_PERMISSION_STORAGE = 1111;
 
+    JSONArray professor = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +49,10 @@ public class LoginActivity extends AppCompatActivity{
         startActivity(intent);
     }
     public void test(View view) {
+        Intent intent = new Intent(this, SelectActivity.class);
+        startActivity(intent);
+    }
+    public void db(View view) {
         Intent intent = new Intent(this, DBtestActivity.class);
         startActivity(intent);
     }
@@ -58,8 +65,8 @@ public class LoginActivity extends AppCompatActivity{
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String userID = idText.getText().toString();
-                final String userPassword = passwordText.getText().toString();
+                final String id = idText.getText().toString();
+                final String password = passwordText.getText().toString();
 
                 //4. 콜백 처리부분(volley 사용을 위한 ResponseListener 구현 부분)
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -67,20 +74,24 @@ public class LoginActivity extends AppCompatActivity{
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
+                            professor = jsonResponse.getJSONArray("response");
+                            JSONObject c = professor.getJSONObject(0);
+                            String success = c.getString("success");
                             Toast.makeText(getApplicationContext(), "success" + success, Toast.LENGTH_SHORT).show();
 
                             //서버에서 보내준 값이 true이면?
-                            if (success) {
-                                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                            if (success.equals("true")) {
+                                Log.i("logintest","OK");
 
-                                String userID = jsonResponse.getString("userID");
-                                String userPassword = jsonResponse.getString("userPassword");
+                                String id = c.getString("id");
+                                String password = c.getString("password");
+
+                                Toast.makeText(getApplicationContext(), "id", Toast.LENGTH_SHORT).show();
 
                                 //로그인에 성공했으므로 MainActivity로 넘어감
                                 Intent intent = new Intent(LoginActivity.this, SelectActivity.class);
-                                intent.putExtra("userID", userID);
-                                intent.putExtra("userPassword", userPassword);
+                                intent.putExtra("id", id);
+                                intent.putExtra("password", password);
 
                                 LoginActivity.this.startActivity(intent);
                             } else {//로그인 실패시
@@ -97,7 +108,7 @@ public class LoginActivity extends AppCompatActivity{
                     }
                 };
 
-                LoginRequest loginRequest = new LoginRequest(userID, userPassword, responseListener);
+                LoginRequest loginRequest = new LoginRequest(id, password, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
             }

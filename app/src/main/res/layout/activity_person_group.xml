@@ -90,6 +90,14 @@
                 android:numColumns="3"
                 android:verticalSpacing="@dimen/view_margin" />
 
+            <TextView
+                android:id="@id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@id/button_bar"
+                android:layout_gravity="center" />
+
             <LinearLayout
                 android:id="@id/button_bar"
                 android:layout_width="match_parent"
