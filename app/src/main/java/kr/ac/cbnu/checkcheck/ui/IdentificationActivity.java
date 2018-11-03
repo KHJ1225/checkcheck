@@ -40,6 +40,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -162,15 +163,17 @@ public class IdentificationActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        ListView listView = (ListView) findViewById(R.id.list_person_groups_identify);
         mPersonGroupListAdapter = new PersonGroupListAdapter();
+
+        /*ListView listView = (ListView) findViewById(R.id.list_person_groups_identify);
+
         listView.setAdapter(mPersonGroupListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 setPersonGroupSelected(position);
             }
-        });
+        });*/
 
         if (mPersonGroupListAdapter.personGroupIdList.size() != 0) {
             setPersonGroupSelected(0);
@@ -180,26 +183,26 @@ public class IdentificationActivity extends AppCompatActivity {
     }
 
     void setPersonGroupSelected(int position) {
-        TextView textView = (TextView) findViewById(R.id.text_person_group_selected);
+        //TextView textView = (TextView) findViewById(R.id.text_person_group_selected);
         if (position > 0) {
             String personGroupIdSelected = mPersonGroupListAdapter.personGroupIdList.get(position);
             mPersonGroupListAdapter.personGroupIdList.set(
                     position, mPersonGroupListAdapter.personGroupIdList.get(0));
             mPersonGroupListAdapter.personGroupIdList.set(0, personGroupIdSelected);
-            ListView listView = (ListView) findViewById(R.id.list_person_groups_identify);
-            listView.setAdapter(mPersonGroupListAdapter);
+            //ListView listView = (ListView) findViewById(R.id.list_person_groups_identify);
+            //listView.setAdapter(mPersonGroupListAdapter);
             setPersonGroupSelected(0);
         } else if (position < 0) {
             setIdentifyButtonEnabledStatus(false);
-            textView.setTextColor(Color.RED);
-            textView.setText(R.string.no_person_group_selected_for_identification_warning);
+            //textView.setTextColor(Color.RED);
+            //textView.setText(R.string.no_person_group_selected_for_identification_warning);
         } else {
             mPersonGroupId = mPersonGroupListAdapter.personGroupIdList.get(0);
             String personGroupName = StorageHelper.getPersonGroupName(
                     mPersonGroupId, IdentificationActivity.this);
             refreshIdentifyButtonEnabledStatus();
-            textView.setTextColor(Color.BLACK);
-            textView.setText(String.format("Person group to use: %s", personGroupName));
+            //textView.setTextColor(Color.BLACK);
+            //textView.setText(String.format("Person group to use: %s", personGroupName));
         }
     }
 
@@ -325,8 +328,10 @@ public class IdentificationActivity extends AppCompatActivity {
 
                     // If image is selected successfully, set the image URI and bitmap.
                     Uri imageUri = data.getData();
-                    mBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
-                            imageUri, getContentResolver());
+                    try{
+                        mBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    } catch (Exception IOException){}
+                   // mBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(imageUri, getContentResolver());
                     if (mBitmap != null) {
                         // Show the image on screen.
                         ImageView imageView = (ImageView) findViewById(R.id.image);
@@ -399,8 +404,8 @@ public class IdentificationActivity extends AppCompatActivity {
 
     // Set whether the buttons are enabled.
     private void setAllButtonsEnabledStatus(boolean isEnabled) {
-        Button selectImageButton = (Button) findViewById(R.id.manage_person_groups);
-        selectImageButton.setEnabled(isEnabled);
+     /*   Button selectImageButton = (Button) findViewById(R.id.manage_person_groups);
+        selectImageButton.setEnabled(isEnabled);*/
 
         Button groupButton = (Button) findViewById(R.id.select_image);
         groupButton.setEnabled(isEnabled);
@@ -507,9 +512,10 @@ public class IdentificationActivity extends AppCompatActivity {
                             mIdentifyResults.get(position).candidates.get(0).personId.toString();
                     String personName = StorageHelper.getPersonName(
                             personId, mPersonGroupId, IdentificationActivity.this);
-                    String identity = "Person: " + personName + "\n"
+                    String identity = "이름: " + personName + "\n";
+                    /*String identity = "이름: " + personName + "\n"
                             + "Confidence: " + formatter.format(
-                            mIdentifyResults.get(position).candidates.get(0).confidence);
+                            mIdentifyResults.get(position).candidates.get(0).confidence);*/
                     ((TextView) convertView.findViewById(R.id.text_detected_face)).setText(
                             identity);
                 } else {

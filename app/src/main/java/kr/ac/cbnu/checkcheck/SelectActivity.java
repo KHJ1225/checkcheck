@@ -18,8 +18,13 @@ public class SelectActivity extends AppCompatActivity{
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case  R.id.btn_attend:
+            /*case  R.id.btn_attend:
                 Intent intent0 = new Intent(this, AttendActivity.class);
+                startActivity(intent0);
+                break;*/
+
+            case R.id.btn_attend:
+                Intent intent0 = new Intent(this, IdentificationActivity.class);
                 startActivity(intent0);
                 break;
 
@@ -33,15 +38,6 @@ public class SelectActivity extends AppCompatActivity{
                 startActivity(intent2);
                 break;
 
-            case R.id.btn_test:
-                Intent intent3 = new Intent(this, IdentificationActivity.class);
-                startActivity(intent3);
-                break;
-
         }
-    }
-    public void managePersonGroups(View view) {
-        Intent intent = new Intent(this, PersonGroupListActivity.class);
-        startActivity(intent);
     }
 }

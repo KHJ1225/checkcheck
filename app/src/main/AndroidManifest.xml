@@ -34,9 +34,9 @@
         <activity android:name=".StatsActivity"/>
 
         <activity
-            android:name=".ui.SelectImageActivity"
-            android:label="@string/select_an_image"
-            android:screenOrientation="portrait" />
+        android:name=".ui.SelectImageActivity"
+        android:label="@string/select_an_image"
+        android:screenOrientation="portrait" />
 
         <activity
             android:name=".persongroupmanagement.PersonGroupListActivity"
@@ -90,6 +90,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SelectActivity" />
         </activity>
+
+        <activity
+            android:name="DBtestActivity"
+            android:label="dbtest"
+            android:screenOrientation="portrait" />
 
         <provider
             android:authorities="kr.ac.cbnu.checkcheck"

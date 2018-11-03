@@ -24,7 +24,7 @@
 
     <!-- Detection activity -->
     <string name="image">Image:</string>
-    <string name="select_image">Select\nImage</string>
+    <string name="select_image">사진 선택</string>
     <string name="result">Result:</string>
     <string name="detect">Detect</string>
 
@@ -41,33 +41,33 @@
 
     <!-- Identification activity -->
     <string name="identify">Identify</string>
-    <string name="manage_person_groups">Manage\nPerson\nGroups</string>
+    <string name="manage_person_groups">학생그룹 관리</string>
     <string name="person_groups">Person Groups</string>
     <string name="target_image">Target image</string>
     <string name="faces">Faces in image</string>
 
     <!-- Person group management activities -->
-    <string name="delete">Delete</string>
-    <string name="done_and_save">Save</string>
+    <string name="delete">삭제</string>
+    <string name="done_and_save">저장</string>
 
     <string name="person_group_list">Person Group List</string>
-    <string name="person_group_list_tip">- Tap on a group to edit.\n- Long tap to delete.</string>
-    <string name="add_person_group">Add Person Group</string>
+    <string name="person_group_list_tip">- 탭해서 수정하기\n- 길게 누르면 삭제</string>
+    <string name="add_person_group">학생 그룹 추가</string>
 
-    <string name="person_group">Person Group</string>
-    <string name="person_group_tip">- Tap on a person to edit.\n- Long press to delete.</string>
-    <string name="person_group_name">Person group name:</string>
-    <string name="type_in_person_group_name_tip">Name (within 30 characters)</string>
-    <string name="add_person">Add Person</string>
+    <string name="person_group">학생 그룹</string>
+    <string name="person_group_tip">- 탭해서 수정하기\n- 길게 누르면 삭제</string>
+    <string name="person_group_name">그룹 명:</string>
+    <string name="type_in_person_group_name_tip">이름 (30글자 이내)</string>
+    <string name="add_person">학생 추가</string>
 
-    <string name="person">Person</string>
+    <string name="person">학생</string>
     <string name="persons">Persons</string>
-    <string name="person_tip">- Long press on a face to delete.</string>
-    <string name="type_in_person_name_tip">Name (within 30 characters)</string>
-    <string name="add_face">Add Face</string>
+    <string name="person_tip">- 길게 누르면 얼굴 삭제</string>
+    <string name="type_in_person_name_tip">이름 (30글자 이내)</string>
+    <string name="add_face">얼굴 추가</string>
     <string name="person_name">Person name:</string>
     <string name="add_face_to_person">Add Faces To Person</string>
-    <string name="select_face_tip">Select this person\'s faces (if exist) by click on the checkbox.</string>
+    <string name="select_face_tip">기존 학생일 경우,\n 체크박스를 클릭해 선택하세요</string>
 
     <!-- Find similar faces and grouping activity -->
     <string name="zero_face">Face list: 0 faces in total</string>
@@ -83,8 +83,8 @@
 
     <!-- Select image activity -->
     <string name="select_an_image">Select an Image</string>
-    <string name="take_photo">Take a Photo</string>
-    <string name="select_image_in_album">From Gallery</string>
+    <string name="take_photo">사진 찍기</string>
+    <string name="select_image_in_album">앨범사진 선택</string>
 
     <!-- Logs -->
     <string name="log">Log:</string>

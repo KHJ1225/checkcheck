@@ -38,6 +38,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -293,8 +294,10 @@ public class AddFaceToPersonActivity extends AppCompatActivity {
         super.onResume();
 
         Uri imageUri = Uri.parse(mImageUriStr);
-        mBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
-                imageUri, getContentResolver());
+        try{
+            mBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+        } catch (Exception IOException){}
+        //mBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(imageUri, getContentResolver());
         if (mBitmap != null) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);

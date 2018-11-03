@@ -282,8 +282,8 @@ public class PersonGroupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(getString(R.string.progress_dialog_title));
 
-        EditText editTextPersonGroupName = (EditText)findViewById(R.id.edit_person_group_name);
-        editTextPersonGroupName.setText(oldPersonGroupName);
+       // EditText editTextPersonGroupName = (EditText)findViewById(R.id.edit_person_group_name);
+       // editTextPersonGroupName.setText(oldPersonGroupName);
     }
 
     private void initializeGridView() {
@@ -407,7 +407,7 @@ public class PersonGroupActivity extends AppCompatActivity {
     }
 
     private void doneAndSave(boolean trainPersonGroup) {
-        EditText editTextPersonGroupName = (EditText)findViewById(R.id.edit_person_group_name);
+        /*EditText editTextPersonGroupName = (EditText)findViewById(R.id.edit_person_group_name);
         String newPersonGroupName = editTextPersonGroupName.getText().toString();
         if (newPersonGroupName.equals("")) {
             setInfo("Person group name could not be empty");
@@ -415,7 +415,7 @@ public class PersonGroupActivity extends AppCompatActivity {
         }
 
         StorageHelper.setPersonGroupName(personGroupId, newPersonGroupName, PersonGroupActivity.this);
-
+*/
         if (trainPersonGroup) {
             new TrainPersonGroupTask().execute(personGroupId);
         } else {

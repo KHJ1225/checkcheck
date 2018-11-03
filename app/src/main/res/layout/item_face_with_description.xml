@@ -16,6 +16,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/view_margin"
         android:layout_marginStart="@dimen/view_margin"
+        android:textColor="@color/black"
         android:id="@+id/text_detected_face" />
 
 </LinearLayout>

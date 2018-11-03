@@ -38,13 +38,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import kr.ac.cbnu.checkcheck.R;
 
@@ -53,6 +57,8 @@ public class SelectImageActivity extends AppCompatActivity {
     // Flag to indicate the request of the next task to be performed
     private static final int REQUEST_TAKE_PHOTO = 0;
     private static final int REQUEST_SELECT_IMAGE_IN_ALBUM = 1;
+
+    private String mCurrentPhotoPath;
 
     // The URI of photo taken with camera
     private Uri mUriPhotoTaken;
@@ -110,10 +116,26 @@ public class SelectImageActivity extends AppCompatActivity {
             // Save the photo taken to a temporary file.
             File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
             try {
-                File file = File.createTempFile("IMG_", ".jpg", storageDir);
-                mUriPhotoTaken = Uri.fromFile(file);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, mUriPhotoTaken);
+                //File file = File.createTempFile("IMG_", ".jpg", storageDir);
+                File photoFile = null;
+
+                photoFile = createImageFile();
+
+                Uri providerURI = FileProvider.getUriForFile(this, getPackageName(), photoFile);
+
+
+                mUriPhotoTaken = providerURI;
+                Log.i("mUriPhotoTaken", mUriPhotoTaken.toString());
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, providerURI);
                 startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+
+             /*   File file = File.createTempFile("IMG_", ".jpg", storageDir);
+                Uri providerURI = FileProvider.getUriForFile(this, getPackageName(), file);
+                mUriPhotoTaken = providerURI;
+                Log.i("mUriPhotoTaken", mUriPhotoTaken.toString());
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, providerURI);
+                startActivityForResult(intent, REQUEST_TAKE_PHOTO);*/
             } catch (IOException e) {
                 setInfo(e.getMessage());
             }
@@ -133,5 +155,22 @@ public class SelectImageActivity extends AppCompatActivity {
     private void setInfo(String info) {
         TextView textView = (TextView) findViewById(R.id.info);
         textView.setText(info);
+    }
+
+    public File createImageFile() throws IOException{
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + ".jpg";
+        File imageFile = null;
+        File storageDir = new File(Environment.getExternalStorageDirectory() + "/Pictures", "check");
+
+        if(!storageDir.exists()){
+            Log.i("mCurrentPhotoPath1", storageDir.toString());
+            storageDir.mkdirs();
+        }
+
+        imageFile = new File(storageDir, imageFileName);
+        mCurrentPhotoPath = imageFile.getAbsolutePath();
+
+        return imageFile;
     }
 }
