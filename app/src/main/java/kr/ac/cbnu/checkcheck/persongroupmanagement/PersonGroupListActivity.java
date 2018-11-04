@@ -133,6 +133,7 @@ public class PersonGroupListActivity extends AppCompatActivity {
         progressDialog.setTitle(getString(R.string.progress_dialog_title));
 
         initializeListView();
+
     }
 
     private void initializeListView() {
@@ -220,6 +221,30 @@ public class PersonGroupListActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list_person_groups);
         personGroupsListAdapter = new PersonGroupsListAdapter();
         listView.setAdapter(personGroupsListAdapter);
+
+        if(personGroupsListAdapter.getCount() == 0){
+            String personGroupId = UUID.randomUUID().toString();
+
+            finish();
+            Intent intent = new Intent(PersonGroupListActivity.this, PersonGroupActivity.class);
+            intent.putExtra("AddNewPersonGroup", true);
+            intent.putExtra("PersonGroupName", "");
+            intent.putExtra("PersonGroupId", personGroupId);
+            startActivity(intent);
+        }
+        else {
+            String personGroupId = personGroupsListAdapter.personGroupIdList.get(0);
+            String personGroupName = StorageHelper.getPersonGroupName(
+                    personGroupId, PersonGroupListActivity.this);
+
+            finish();
+            Intent intent = new Intent(PersonGroupListActivity.this, PersonGroupActivity.class);
+            intent.putExtra("AddNewPersonGroup", false);
+            intent.putExtra("PersonGroupName", personGroupName);
+            intent.putExtra("PersonGroupId", personGroupId);
+            startActivity(intent);
+
+        }
     }
 
     public void addPersonGroup(View view) {

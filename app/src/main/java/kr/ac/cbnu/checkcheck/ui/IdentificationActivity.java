@@ -34,6 +34,7 @@ package kr.ac.cbnu.checkcheck.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -41,21 +42,28 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.microsoft.projectoxford.face.FaceServiceClient;
 import com.microsoft.projectoxford.face.contract.Face;
 import com.microsoft.projectoxford.face.contract.IdentifyResult;
 import com.microsoft.projectoxford.face.contract.TrainingStatus;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -68,15 +76,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import kr.ac.cbnu.checkcheck.Global;
+import kr.ac.cbnu.checkcheck.IdentificationEndRequest;
+import kr.ac.cbnu.checkcheck.LoginActivity;
 import kr.ac.cbnu.checkcheck.R;
 import kr.ac.cbnu.checkcheck.helper.CheckApp;
 import kr.ac.cbnu.checkcheck.helper.ImageHelper;
 import kr.ac.cbnu.checkcheck.helper.LogHelper;
 import kr.ac.cbnu.checkcheck.helper.StorageHelper;
+import kr.ac.cbnu.checkcheck.IdentificationRequest;
 import kr.ac.cbnu.checkcheck.persongroupmanagement.PersonGroupListActivity;
 
 
 public class IdentificationActivity extends AppCompatActivity {
+
+    JSONArray students = null;
+    JSONArray identify_end_json = null;
 
     // Background task of face identification.
     private class IdentificationTask extends AsyncTask<UUID, String, IdentifyResult[]> {
@@ -96,7 +111,7 @@ public class IdentificationActivity extends AppCompatActivity {
             // Get an instance of face service client to detect faces in image.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Getting person group status...");
+                publishProgress("정보를 가져오는 중입니다...");
 
                 TrainingStatus trainingStatus = faceServiceClient.getLargePersonGroupTrainingStatus(
                         this.mPersonGroupId);     /* personGroupId */
@@ -106,7 +121,7 @@ public class IdentificationActivity extends AppCompatActivity {
                     return null;
                 }
 
-                publishProgress("Identifying...");
+                publishProgress("출석체크 진행중입니다...");
 
                 // Start identification.
                 return faceServiceClient.identityInLargePersonGroup(
@@ -226,7 +241,7 @@ public class IdentificationActivity extends AppCompatActivity {
 
         if (succeed) {
             // Set the information about the detection result.
-            setInfo("Identification is done");
+            //setInfo("Identification is done");
 
             if (result != null) {
                 mFaceListAdapter.setIdentificationResult(result);
@@ -254,7 +269,7 @@ public class IdentificationActivity extends AppCompatActivity {
             // Get an instance of face service client to detect faces in image.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Detecting...");
+                publishProgress("얼굴을 감지중입니다...");
 
                 // Start detection.
                 return faceServiceClient.detect(
@@ -295,10 +310,10 @@ public class IdentificationActivity extends AppCompatActivity {
 
                 if (result.length == 0) {
                     detected = false;
-                    setInfo("No faces detected!");
+                    //setInfo("No faces detected!");
                 } else {
                     detected = true;
-                    setInfo("Click on the \"Identify\" button to identify the faces in image.");
+                    //setInfo("Click on the \"Identify\" button to identify the faces in image.");
                 }
             } else {
                 detected = false;
@@ -390,8 +405,56 @@ public class IdentificationActivity extends AppCompatActivity {
                     faceIds.toArray(new UUID[faceIds.size()]));
         } else {
             // Not detected or person group exists.
-            setInfo("Please select an image and create a person group first.");
+            //setInfo("Please select an image and create a person group first.");
         }
+    }
+
+    public void identify_end(View view){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    identify_end_json = jsonResponse.getJSONArray("response");
+                    JSONObject c = identify_end_json.getJSONObject(0);
+                    String success = c.getString("success");
+
+                    //서버에서 보내준 값이 true이면?
+                    if (success.equals("true")) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(IdentificationActivity.this);
+
+                        builder.setMessage("출석체크를 종료합니다.")
+                                .setCancelable(false)
+                                .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                })
+                                .create()
+                                .show();
+
+                    }
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(IdentificationActivity.this);
+
+                        builder.setMessage("다시 시도해주세요.")
+                                .setNegativeButton("확인", null)
+                                .create()
+                                .show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        String date = Global.getInstance().getAttend_date_string();
+        String classnumber = Global.getInstance().getClassnumberString();
+
+        IdentificationEndRequest identificationEndRequest = new IdentificationEndRequest(classnumber, date, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(identificationEndRequest);
     }
 
     public void managePersonGroups(View view) {
@@ -468,6 +531,19 @@ public class IdentificationActivity extends AppCompatActivity {
 
         public void setIdentificationResult(IdentifyResult[] identifyResults) {
             mIdentifyResults = Arrays.asList(identifyResults);
+
+         /*   Global.getInstance().clear_attendStu();
+
+            for(int i = 0; i <mIdentifyResults.size(); i++) {
+                String personId =
+                        mIdentifyResults.get(i).candidates.get(0).personId.toString();
+                String personName = StorageHelper.getPersonName(
+                        personId, mPersonGroupId, IdentificationActivity.this);
+
+                Global.getInstance().add_attendStu(personName);
+                attend_DB_update(personName);
+            }*/
+
         }
 
         @Override
@@ -512,7 +588,11 @@ public class IdentificationActivity extends AppCompatActivity {
                             mIdentifyResults.get(position).candidates.get(0).personId.toString();
                     String personName = StorageHelper.getPersonName(
                             personId, mPersonGroupId, IdentificationActivity.this);
-                    String identity = "이름: " + personName + "\n";
+
+                    attend_DB_update(personName);
+
+                    String identity = "학번: " + personName + " - 출석완료";
+
                     /*String identity = "이름: " + personName + "\n"
                             + "Confidence: " + formatter.format(
                             mIdentifyResults.get(position).candidates.get(0).confidence);*/
@@ -520,12 +600,44 @@ public class IdentificationActivity extends AppCompatActivity {
                             identity);
                 } else {
                     ((TextView) convertView.findViewById(R.id.text_detected_face)).setText(
-                            R.string.face_cannot_be_identified);
+                            "등록되지 않은 학생입니다.");
                 }
             }
 
             return convertView;
         }
+    }
+
+    private void attend_DB_update(String personName){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    students = jsonResponse.getJSONArray("response");
+                    JSONObject c = students.getJSONObject(0);
+                    String success = c.getString("success");
+
+                    //서버에서 보내준 값이 true이면?
+                    if (success.equals("true")) {
+                        int studentnumber = c.getInt("studentnumber");
+                        String studname = c.getString("studname");
+                        String major = c.getString("major");
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        String date = Global.getInstance().getAttend_date_string();
+        String classnumber = Global.getInstance().getClassnumberString();
+
+        IdentificationRequest identificationRequest = new IdentificationRequest(personName, classnumber, date, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(identificationRequest);
     }
 
     // The adapter of the ListView which contains the person groups.

@@ -86,7 +86,7 @@ public class AddFaceToPersonActivity extends AppCompatActivity {
             // Get an instance of face service client to detect faces in image.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Adding face...");
+                publishProgress("얼굴을 추가하는 중입니다...");
                 UUID personId = UUID.fromString(mPersonId);
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -139,7 +139,7 @@ public class AddFaceToPersonActivity extends AppCompatActivity {
             // Get an instance of face service client to detect faces in image.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Detecting...");
+                publishProgress("사진에서 얼굴을 감지중입니다...");
 
                 // Start detection.
                 return faceServiceClient.detect(
@@ -231,10 +231,9 @@ public class AddFaceToPersonActivity extends AppCompatActivity {
         if (succeed) {
             // Set the information about the detection result.
             if (result != null) {
-                setInfo(result.length + " face"
-                        + (result.length != 1 ? "s" : "") + " detected");
+                setInfo(result.length + "개의 얼굴이 감지되었습니다.");
             } else {
-                setInfo("0 face detected");
+                setInfo("감지된 얼굴이 없습니다.");
             }
 
             // Set the adapter of the ListView which contains the details of the detected faces.

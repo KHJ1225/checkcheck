@@ -14,19 +14,6 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="db"
-            android:onClick="db"/>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="select"
-            android:onClick="test"/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +44,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="15dp"
-                android:textColorHint="@color/mainColor" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/mainColor"
+                android:maxLines="1"
+                android:inputType="text"/>
         </LinearLayout>
 
         <LinearLayout
@@ -83,6 +73,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="15dp"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:inputType="text"
                 android:password="true" />
         </LinearLayout>
 

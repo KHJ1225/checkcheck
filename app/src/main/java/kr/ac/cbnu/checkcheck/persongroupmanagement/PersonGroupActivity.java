@@ -68,6 +68,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import kr.ac.cbnu.checkcheck.R;
+import kr.ac.cbnu.checkcheck.SelectActivity;
 import kr.ac.cbnu.checkcheck.helper.CheckApp;
 import kr.ac.cbnu.checkcheck.helper.LogHelper;
 import kr.ac.cbnu.checkcheck.helper.StorageHelper;
@@ -90,7 +91,7 @@ public class PersonGroupActivity extends AppCompatActivity {
             // Get an instance of face service client.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Syncing with server to add person group...");
+                publishProgress("서버 동기화중입니다...");
 
                 // Start creating person group in server.
                 faceServiceClient.createLargePersonGroup(
@@ -128,7 +129,7 @@ public class PersonGroupActivity extends AppCompatActivity {
                 personGridViewAdapter = new PersonGridViewAdapter();
                 gridView.setAdapter(personGridViewAdapter);
 
-                setInfo("Success. Group " + result + " created");
+               // setInfo("Success. Group " + result + " created");
 
                 if (mAddPerson) {
                     addPerson();
@@ -148,7 +149,7 @@ public class PersonGroupActivity extends AppCompatActivity {
             // Get an instance of face service client.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Training person group...");
+                publishProgress("입력한 데이터를 러닝하는 중입니다...");
 
                 faceServiceClient.trainLargePersonGroup(params[0]);
                 return params[0];
@@ -191,7 +192,7 @@ public class PersonGroupActivity extends AppCompatActivity {
             // Get an instance of face service client.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Deleting selected persons...");
+                publishProgress("선택된 학생을 삭제중입니다...");
                 addLog("Request: Deleting person " + params[0]);
 
                 UUID personId = UUID.fromString(params[0]);
@@ -219,7 +220,7 @@ public class PersonGroupActivity extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result != null) {
-                setInfo("Person " + result + " successfully deleted");
+               // setInfo("Person " + result + " successfully deleted");
                 addLog("Response: Success. Deleting person " + result + " succeed");
             }
         }
@@ -282,8 +283,8 @@ public class PersonGroupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(getString(R.string.progress_dialog_title));
 
-       // EditText editTextPersonGroupName = (EditText)findViewById(R.id.edit_person_group_name);
-       // editTextPersonGroupName.setText(oldPersonGroupName);
+        EditText editTextPersonGroupName = (EditText)findViewById(R.id.edit_person_group_name);
+        editTextPersonGroupName.setText(oldPersonGroupName);
     }
 
     private void initializeGridView() {
@@ -378,6 +379,13 @@ public class PersonGroupActivity extends AppCompatActivity {
         }
     }
 
+   /* @Override
+    protected  void onStop(){
+        super.onStop();
+        Intent intent = new Intent(PersonGroupActivity.this, SelectActivity.class);
+        startActivity(intent);
+    }*/
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -407,15 +415,15 @@ public class PersonGroupActivity extends AppCompatActivity {
     }
 
     private void doneAndSave(boolean trainPersonGroup) {
-        /*EditText editTextPersonGroupName = (EditText)findViewById(R.id.edit_person_group_name);
+        EditText editTextPersonGroupName = (EditText)findViewById(R.id.edit_person_group_name);
         String newPersonGroupName = editTextPersonGroupName.getText().toString();
         if (newPersonGroupName.equals("")) {
-            setInfo("Person group name could not be empty");
+            setInfo("그룹 이름을 입력하세요.");
             return;
         }
 
         StorageHelper.setPersonGroupName(personGroupId, newPersonGroupName, PersonGroupActivity.this);
-*/
+
         if (trainPersonGroup) {
             new TrainPersonGroupTask().execute(personGroupId);
         } else {

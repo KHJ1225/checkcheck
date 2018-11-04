@@ -88,7 +88,7 @@ public class PersonActivity extends AppCompatActivity {
             // Get an instance of face service client.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Syncing with server to add person...");
+                publishProgress("서버 동기화중입니다...");
                 addLog("Request: Creating Person in person group" + params[0]);
 
                 // Start the request to creating person.
@@ -122,7 +122,7 @@ public class PersonActivity extends AppCompatActivity {
             if (result != null) {
                 addLog("Response: Success. Person " + result + " created.");
                 personId = result;
-                setInfo("Successfully Synchronized!");
+                setInfo("서버 동기화 완료");
 
                 if (mAddFace) {
                     addFace();
@@ -147,7 +147,7 @@ public class PersonActivity extends AppCompatActivity {
             // Get an instance of face service client.
             FaceServiceClient faceServiceClient = CheckApp.getFaceServiceClient();
             try{
-                publishProgress("Deleting selected faces...");
+                publishProgress("선택된 얼굴을 삭제중입니다...");
                 addLog("Request: Deleting face " + params[0]);
 
                 UUID faceId = UUID.fromString(params[0]);
@@ -175,7 +175,7 @@ public class PersonActivity extends AppCompatActivity {
             progressDialog.dismiss();
 
             if (result != null) {
-                setInfo("Face " + result + " successfully deleted");
+                //setInfo("데이터가 삭제되었습니다.");
                 addLog("Response: Success. Deleting face " + result + " succeed");
             }
         }
@@ -188,7 +188,7 @@ public class PersonActivity extends AppCompatActivity {
     // Show the status of background detection task on screen.
     private void setUiDuringBackgroundTask(String progress) {
         progressDialog.setMessage(progress);
-        setInfo(progress);
+        //setInfo(progress);
     }
 
     boolean addNewPerson;
@@ -340,7 +340,7 @@ public class PersonActivity extends AppCompatActivity {
         EditText editTextPersonName = (EditText)findViewById(R.id.edit_person_name);
         String newPersonName = editTextPersonName.getText().toString();
         if (newPersonName.equals("")) {
-            textWarning.setText(R.string.person_name_empty_warning_message);
+            textWarning.setText("학번을 입력하세요.");
             return;
         }
 

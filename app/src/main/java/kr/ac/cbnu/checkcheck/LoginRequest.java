@@ -57,14 +57,13 @@ public class LoginRequest extends StringRequest {
 
     }*/
 
-    private static final String LOGIN_REQUEST_URL = "http://18.234.170.219/logintest.php";
+    private static final String LOGIN_REQUEST_URL = "http://18.234.170.219/login.php";
     private Map<String, String> params;
 
     public LoginRequest(String id, String password, Response.Listener<String> listener) {
         super(Request.Method.POST, LOGIN_REQUEST_URL, listener, null);
         params = new HashMap<String, String>();
         params.put("id", id);
-
         params.put("password", password);
     }
 

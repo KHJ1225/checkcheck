@@ -138,19 +138,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/identify"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginRight="@dimen/view_margin"
             android:layout_marginEnd="@dimen/view_margin"
-            android:text="출석체크 진행"
-            android:textSize="15dp"
+            android:layout_marginRight="@dimen/view_margin"
+            android:layout_weight="1"
+            android:background="@color/mainColor"
             android:onClick="identify"
-            android:background="@color/mainColor" />
+            android:text="출석체크 진행"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/identify_end"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/view_margin"
+            android:layout_marginRight="@dimen/view_margin"
+            android:layout_weight="1"
+            android:background="@color/mainColor"
+            android:onClick="identify_end"
+            android:text="출석체크 종료"
+            android:textSize="15dp" />
 
     </LinearLayout>
 

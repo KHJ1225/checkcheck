@@ -34,15 +34,30 @@ package kr.ac.cbnu.checkcheck.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import kr.ac.cbnu.checkcheck.Global;
+import kr.ac.cbnu.checkcheck.IdentificationRequest;
+import kr.ac.cbnu.checkcheck.ui.IdentificationActivity;
+
 /**
  * Defined several functions to manage local storage.
  */
-public class StorageHelper {
+public class StorageHelper{
+
     public static Set<String> getAllPersonGroupIds(Context context) {
         SharedPreferences personGroupIdSet =
                 context.getSharedPreferences("PersonGroupIdSet", Context.MODE_PRIVATE);
@@ -108,6 +123,7 @@ public class StorageHelper {
     public static String getPersonName(String personId, String personGroupId, Context context) {
         SharedPreferences personIdNameMap =
                 context.getSharedPreferences(personGroupId + "PersonIdNameMap", Context.MODE_PRIVATE);
+
         return personIdNameMap.getString(personId, "");
     }
 
@@ -202,4 +218,5 @@ public class StorageHelper {
         faceIdSetEditor.putStringSet("FaceIdSet", newFaceIds);
         faceIdSetEditor.commit();
     }
+
 }

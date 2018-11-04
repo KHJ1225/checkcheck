@@ -44,19 +44,6 @@ public class LoginActivity extends AppCompatActivity{
         login();
     }
 
-    public void onClick(View view) {
-        Intent intent = new Intent(this, SubjectlistActivity.class);
-        startActivity(intent);
-    }
-    public void test(View view) {
-        Intent intent = new Intent(this, SelectActivity.class);
-        startActivity(intent);
-    }
-    public void db(View view) {
-        Intent intent = new Intent(this, DBtestActivity.class);
-        startActivity(intent);
-    }
-
     public void login(){
         final EditText idText = (EditText)findViewById(R.id.edit_id);
         final EditText passwordText = (EditText)findViewById(R.id.edit_password);
@@ -77,28 +64,26 @@ public class LoginActivity extends AppCompatActivity{
                             professor = jsonResponse.getJSONArray("response");
                             JSONObject c = professor.getJSONObject(0);
                             String success = c.getString("success");
-                            Toast.makeText(getApplicationContext(), "success" + success, Toast.LENGTH_SHORT).show();
 
                             //서버에서 보내준 값이 true이면?
                             if (success.equals("true")) {
-                                Log.i("logintest","OK");
-
+                                int profnumber = c.getInt("profnumber");
+                                String profname = c.getString("profname");
                                 String id = c.getString("id");
                                 String password = c.getString("password");
 
-                                Toast.makeText(getApplicationContext(), "id", Toast.LENGTH_SHORT).show();
+                                Global.getInstance().setProfnumber(profnumber);
+                                Global.getInstance().setProfname(profname);
+
 
                                 //로그인에 성공했으므로 MainActivity로 넘어감
-                                Intent intent = new Intent(LoginActivity.this, SelectActivity.class);
-                                intent.putExtra("id", id);
-                                intent.putExtra("password", password);
-
-                                LoginActivity.this.startActivity(intent);
-                            } else {//로그인 실패시
+                                Intent intent = new Intent(LoginActivity.this, SubjectlistActivity.class);
+                                startActivity(intent);
+                            } else{//로그인 실패시
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
 
-                                builder.setMessage("Login failed")
-                                        .setNegativeButton("retry", null)
+                                builder.setMessage("로그인에 실패했습니다.\n아이디와 비밀번호를 확인해주세요")
+                                        .setNegativeButton("확인", null)
                                         .create()
                                         .show();
                             }

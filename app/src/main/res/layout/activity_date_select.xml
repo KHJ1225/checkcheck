@@ -12,62 +12,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center|bottom"
-        android:paddingBottom="10dp">
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/date_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginHorizontal="50dp"
+            android:background="@color/mainColor"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/btn_attend"
-            android:layout_width="230dp"
+            android:id="@+id/btn_attending"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
             android:background="#00000000"
-            android:onClick="onClick"
-            app:srcCompat="@drawable/btn_attend" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:gravity="center|top"
-        android:paddingTop="10dp">
-
-        <ImageButton
-            android:id="@+id/btn_stats"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
+            android:onClick="attendCheck"
             android:scaleType="fitXY"
-            android:onClick="onClick"
-            app:srcCompat="@drawable/btn_stats"
-            android:background="#00000000"/>
+            app:srcCompat="@drawable/btn_attending" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
         android:layout_weight="1"
         android:gravity="bottom"
-        android:orientation="vertical"
-        android:layout_marginBottom="20dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="CBNU"
             android:textColor="@color/mainColor"
-            android:textSize="25sp"
-            android:gravity="center"/>
+            android:textSize="25sp" />
+
     </LinearLayout>
 
 </LinearLayout>

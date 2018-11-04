@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import kr.ac.cbnu.checkcheck.persongroupmanagement.PersonGroupListActivity;
 import kr.ac.cbnu.checkcheck.ui.IdentificationActivity;
@@ -24,7 +25,7 @@ public class SelectActivity extends AppCompatActivity{
                 break;*/
 
             case R.id.btn_attend:
-                Intent intent0 = new Intent(this, IdentificationActivity.class);
+                Intent intent0 = new Intent(this, DateSelectActivity.class);
                 startActivity(intent0);
                 break;
 
