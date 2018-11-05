@@ -13,6 +13,7 @@ public class Global {
 
     private int profnumber;
     private String profname;
+    private String profmajor;
 
     private int classnumber;
 
@@ -38,6 +39,14 @@ public class Global {
 
     public int getClassnumber() {
         return classnumber;
+    }
+
+    public String getProfmajor() {
+        return profmajor;
+    }
+
+    public void setProfmajor(String profmajor) {
+        this.profmajor = profmajor;
     }
 
     public String getClassnumberString() {

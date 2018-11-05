@@ -13,10 +13,9 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView_greeting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="박수창 교수님 안녕하세요!"
             android:textColor="@color/black"
             android:textSize="15dp"
             android:layout_margin="20dp"/>
@@ -55,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:choiceMode="singleChoice"
+                android:listSelector="@color/mainColor"
                 android:dividerHeight="1.5dp" />
         </LinearLayout>
 

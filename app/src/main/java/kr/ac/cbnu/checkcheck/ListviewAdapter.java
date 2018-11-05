@@ -42,7 +42,7 @@ public class ListviewAdapter extends BaseAdapter {
         ImageView icon=(ImageView)convertView.findViewById(R.id.imageview);
         icon.setImageResource(listviewitem.getIcon());
 
-        TextView name=(TextView)convertView.findViewById(R.id.textview);
+        TextView name=(TextView)convertView.findViewById(R.id.textView_subjectlist_item1);
         name.setText(listviewitem.getName());
 
         return convertView;

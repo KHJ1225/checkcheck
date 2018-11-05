@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.DialogPreference;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -36,9 +37,17 @@ public class LoginActivity extends AppCompatActivity{
     JSONArray professor = null;
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        setLoginButtonEnabledStatus(true);
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        setLoginButtonEnabledStatus(true);
 
         checkPermission();
         login();
@@ -52,6 +61,7 @@ public class LoginActivity extends AppCompatActivity{
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setLoginButtonEnabledStatus(false);
                 final String id = idText.getText().toString();
                 final String password = passwordText.getText().toString();
 
@@ -69,11 +79,13 @@ public class LoginActivity extends AppCompatActivity{
                             if (success.equals("true")) {
                                 int profnumber = c.getInt("profnumber");
                                 String profname = c.getString("profname");
+                                String profmajor = c.getString("major");
                                 String id = c.getString("id");
                                 String password = c.getString("password");
 
                                 Global.getInstance().setProfnumber(profnumber);
                                 Global.getInstance().setProfname(profname);
+                                Global.getInstance().setProfmajor(profmajor);
 
 
                                 //로그인에 성공했으므로 MainActivity로 넘어감
@@ -86,6 +98,7 @@ public class LoginActivity extends AppCompatActivity{
                                         .setNegativeButton("확인", null)
                                         .create()
                                         .show();
+                                setLoginButtonEnabledStatus(true);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -152,6 +165,11 @@ public class LoginActivity extends AppCompatActivity{
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.INTERNET}, MY_PERMISSION_STORAGE);
             }
         }
+    }
+
+    private void setLoginButtonEnabledStatus(boolean isEnabled) {
+        ImageButton button = (ImageButton) findViewById(R.id.btn_login);
+        button.setEnabled(isEnabled);
     }
 
     @Override
