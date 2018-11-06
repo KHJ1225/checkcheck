@@ -8,6 +8,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:gravity="center_horizontal|bottom"
@@ -66,22 +71,47 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:orientation="vertical"
-            android:background="@color/mainColor"></LinearLayout>
+            android:background="@color/mainColor">
 
-        <LinearLayout
+        </LinearLayout>
+
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginBottom="3dp">
 
-            <ListView
-                android:id="@+id/listView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="#999999"
-                android:dividerHeight="1dp">
+                android:orientation="vertical">
 
-            </ListView>
-        </LinearLayout>
+                <ListView
+                    android:id="@+id/listViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#999999"
+                    android:dividerHeight="1dp">
+
+                </ListView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/mainColor"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="#999999"
+                    android:dividerHeight="1dp">
+
+                </ListView>
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,19 +125,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:layout_marginBottom="20dp">
+        android:layout_height="30dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="CBNU"
             android:textColor="@color/mainColor"
-            android:textSize="25sp"
-            android:gravity="center"
-            android:layout_marginTop="20dp"/>
+            android:textSize="25sp" />
     </LinearLayout>
 </LinearLayout>

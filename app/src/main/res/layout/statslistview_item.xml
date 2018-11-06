@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textview_studentname"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textview_studentnumber"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textview_studentmajor"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textview_cnt_O"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_cnt_X"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_1st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_2nd"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_3rd"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_4st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_5st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_6st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_7st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_8st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_9st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_10st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_11st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_12st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_13st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_14st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_15st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/textView_16st"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:paddingLeft="5dp"
+        android:textColor="@color/black"
+        android:textSize="14dp" />
+
+</LinearLayout>

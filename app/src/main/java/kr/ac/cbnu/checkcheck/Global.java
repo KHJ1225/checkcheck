@@ -20,6 +20,8 @@ public class Global {
     private int attend_date;
     private String attend_date_string;
 
+    private int sortType;
+
 
     public int getProfnumber() {
         return profnumber;
@@ -90,5 +92,13 @@ public class Global {
 
     public void setAttend_date_string(String attend_date_string) {
         this.attend_date_string = attend_date_string;
+    }
+
+    public int getSortType() {
+        return sortType;
+    }
+
+    public void setSortType(int sortType) {
+        this.sortType = sortType;
     }
 }
