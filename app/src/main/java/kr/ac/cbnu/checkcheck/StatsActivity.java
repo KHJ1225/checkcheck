@@ -29,13 +29,10 @@ import java.util.List;
 
 public class StatsActivity extends AppCompatActivity {
 
-    private List<String> list;
     private ListView listView;
     private ListView listViewTitle;
     private EditText editSearch;
     private ArrayList<HashMap<String, String>> searchList;
-    private SearchAdapter adapter_search;
-    private ArrayList<String> arraylist;
     private Spinner sortSpinner;
     private JSONArray attendances = null;
     private ArrayList<HashMap<String, String>> attendancesList;
@@ -59,17 +56,6 @@ public class StatsActivity extends AppCompatActivity {
         settingListTitle();
         settingList();
 
-   /*     list = new ArrayList<String>();
-
-
-
-        arraylist = new ArrayList<String>();
-        arraylist.addAll(list);
-
-        adapter_search = new SearchAdapter(list, this);
-
-        listView.setAdapter(adapter_search);
-*/
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -102,6 +88,10 @@ public class StatsActivity extends AppCompatActivity {
             for(int i = 0;i < attendancesList.size(); i++)
             {
                 if (attendancesList.get(i).get("studentname").toLowerCase().contains(charText))
+                {
+                    searchList.add(attendancesList.get(i));
+                }
+                if (attendancesList.get(i).get("studentnumber").toLowerCase().contains(charText))
                 {
                     searchList.add(attendancesList.get(i));
                 }
