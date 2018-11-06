@@ -31,7 +31,9 @@
 
         <activity android:name=".SubjectlistActivity"/>
 
-        <activity android:name=".StatsActivity"/>
+        <activity
+            android:name=".StatsActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <activity
             android:name="DateSelectActivity"

@@ -33,12 +33,13 @@ public class StatsActivity extends AppCompatActivity {
     private ListView listView;
     private ListView listViewTitle;
     private EditText editSearch;
+    private ArrayList<HashMap<String, String>> searchList;
     private SearchAdapter adapter_search;
     private ArrayList<String> arraylist;
     private Spinner sortSpinner;
-    JSONArray attendances = null;
-    ArrayList<HashMap<String, String>> attendancesList;
-    ArrayList<HashMap<String, String>> attendancesTitleList;
+    private JSONArray attendances = null;
+    private ArrayList<HashMap<String, String>> attendancesList;
+    private ArrayList<HashMap<String, String>> attendancesTitleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class StatsActivity extends AppCompatActivity {
         spinner_event();
 
         editSearch = (EditText) findViewById(R.id.editSearch);
+        searchList = new ArrayList<HashMap<String, String>>();
+
         listView = (ListView) findViewById(R.id.listView);
         listViewTitle = (ListView) findViewById(R.id.listViewTitle);
 
@@ -66,7 +69,7 @@ public class StatsActivity extends AppCompatActivity {
         adapter_search = new SearchAdapter(list, this);
 
         listView.setAdapter(adapter_search);
-
+*/
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -84,29 +87,29 @@ public class StatsActivity extends AppCompatActivity {
             }
         });
 
-*/
+
     }
 
-  /*  public void search(String charText) {
+    public void search(String charText) {
 
-        list.clear();
+        searchList.clear();
 
         if (charText.length() == 0) {
-            list.addAll(arraylist);
+            set_listView(0);
         }
         else
         {
-            for(int i = 0;i < arraylist.size(); i++)
+            for(int i = 0;i < attendancesList.size(); i++)
             {
-                if (arraylist.get(i).toLowerCase().contains(charText))
+                if (attendancesList.get(i).get("studentname").toLowerCase().contains(charText))
                 {
-                    list.add(arraylist.get(i));
+                    searchList.add(attendancesList.get(i));
                 }
             }
+            set_listView(1);
         }
-        adapter.notifyDataSetChanged();
     }
-*/
+
     private void settingList(){
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -184,7 +187,7 @@ public class StatsActivity extends AppCompatActivity {
                         }
                     }
 
-                    set_listView();
+                    set_listView(0);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -249,8 +252,9 @@ public class StatsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 Global.getInstance().setSortType(position);
                 //tv.setText("position : " + Global.getInstance().getSortType());
-
-                set_listView();
+                if(editSearch.getText().toString().length() == 0){
+                    set_listView(0);
+                }else { set_listView(1); }
             }
 
             @Override
@@ -260,29 +264,36 @@ public class StatsActivity extends AppCompatActivity {
         });
     }
 
-    private void set_listView(){
+    private void set_listView(int setType){
+        ArrayList<HashMap<String, String>> tempList = new ArrayList<HashMap<String, String>>();
+        if(setType == 0){
+            tempList.addAll(attendancesList);
+        }else if(setType == 1){
+            tempList.addAll(searchList);
+        }
+
         int spinner_position = Global.getInstance().getSortType();
         if(Global.getInstance().getSortType() == 0){
             MapComparator comp = new MapComparator("studentname", 1);
-            Collections.sort(attendancesList, comp);
+            Collections.sort(tempList, comp);
         }else if(spinner_position == 1){
             MapComparator comp = new MapComparator("studentname", 1);
-            Collections.sort(attendancesList, comp);
+            Collections.sort(tempList, comp);
         }
         else if(spinner_position == 2){
             MapComparator comp = new MapComparator("studentname", -1);
-            Collections.sort(attendancesList, comp);
+            Collections.sort(tempList, comp);
         }
         else if(spinner_position == 3){
             MapComparator comp = new MapComparator("studentnumber", 1);
-            Collections.sort(attendancesList, comp);
+            Collections.sort(tempList, comp);
         }else if(spinner_position == 4){
             MapComparator comp = new MapComparator("studentnumber", -1);
-            Collections.sort(attendancesList, comp);
+            Collections.sort(tempList, comp);
         }
 
         ListAdapter adapter = new SimpleAdapter(
-                StatsActivity.this, attendancesList, R.layout.statslistview_item,
+                StatsActivity.this, tempList, R.layout.statslistview_item,
                 new String[]{"studentname", "studentnumber", "studentmajor", "cnt_O","cnt_X","1st", "2nd", "3rd", "4st", "5st", "6st", "7st", "8st", "9st", "10st", "11st", "12st", "13st", "14st", "15st", "16st"},
                 new int[]{R.id.textview_studentname, R.id.textview_studentnumber, R.id.textview_studentmajor, R.id.textview_cnt_O, R.id.textView_cnt_X, R.id.textView_1st, R.id.textView_2nd, R.id.textView_3rd, R.id.textView_4st, R.id.textView_5st,
                         R.id.textView_6st, R.id.textView_7st, R.id.textView_8st, R.id.textView_9st, R.id.textView_10st,
